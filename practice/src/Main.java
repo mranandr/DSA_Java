@@ -10,13 +10,13 @@ class DynamicArray{
         cap = initialCapacity;
     }
 
-   void add(int val){
+    void add(int val){
         if(size==cap){
             System.out.println("Memory full so i expand the memory");
             expandArray();
 
         }
-       arr[size++] = val;
+        arr[size++] = val;
     }
     private void expandArray(){
         cap *=2;
@@ -31,7 +31,6 @@ class DynamicArray{
         for (int i = 0; i < size; i++) {
             System.out.print(arr[i] + " ");
         }
-        System.out.println(); // New line after displaying all elements
     }
     void insertAtPos(int pos, int val) {
         if (pos < 0 || pos > size) {
@@ -65,23 +64,55 @@ class DynamicArray{
         arr = java.util.Arrays.copyOf(arr, cap);
     }
 
+    void deleteAtEnd(){
+        if(size==0){
+            System.out.println("Array is empty");
+        }
+        size--;
+        System.out.println("Deleted the last element of Array");
+    }
+    void deleteAtBeginning(){
+        if(size==0){
+            System.out.println("Array is empty");
+        }
+        for(int i=0;i<size-1;i++){
+            arr[i] = arr[i+1];
+        }
+        size--;
+        System.out.println("deleted");
+    }
+    void insertAtBeginning(int val){
+        for (int i = size; i > 0; i--) {
+            arr[i] = arr[i - 1];
+        }
+        arr[0] = val;
+        size++;
+    }
+    void clear(){
+        for(int i =size-1;i>=0;i--){
+            size--;
+        }
+        System.out.println("Clear the all of the values on array");
+    }
 
 }
-
 
 public class Main {
     public static void main(String[] args) {
         DynamicArray Array = new DynamicArray();
         Scanner scan = new Scanner(System.in);
-        int val, pos, res;
-
+        int val, pos;
         while (true) {
-            System.out.println("Dynamic Array use this number for using this Array");
+            System.out.println("\n\nDynamic Array use this number for using this Array");
             System.out.println("Enter 1 for add a value on Last index");
             System.out.println("Enter 2 for add a value on Specific index");
             System.out.println("Enter 3 for display all value on the List");
             System.out.println("Enter 4 for delete the value from specific position");
-            System.out.println("Enter 5 for Exit \n\n");
+            System.out.println("Enter 5 for Exit");
+            System.out.println("Enter 6 for delete the value from least index");
+            System.out.println("Enter 7 for delete at beginning");
+            System.out.println("Enter 8 for insert at beginning");
+            System.out.println("Enter 9 for clear all elements");
 
             int opt = scan.nextInt();
             switch (opt) {
@@ -116,14 +147,29 @@ public class Main {
                     Array.deleteAtPos(pos);
                     break;
 
-                case 5:
+                case 0:
                     System.exit(0);
                     System.out.println("Thank You");
                     break;
 
+                case 6:
+                    Array.deleteAtEnd();
+                    break;
+
+                case 7:
+                    Array.deleteAtBeginning();
+                    break;
+
+                case 8:
+                    val = scan.nextInt();
+                    Array.insertAtBeginning(val);
+                    break;
+
+                case 9:
+                    Array.clear();
+                    break;
+
                 default: System.out.println("Invalid key");
-
-
             }
         }
 
